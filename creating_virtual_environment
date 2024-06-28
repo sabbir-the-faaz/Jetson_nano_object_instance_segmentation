@@ -142,32 +142,34 @@ These commands collectively set up a development environment suitable for buildi
 
 
 
-Download OpenCV:
+#Download OpenCV:
 cd ~
 wget -O opencv.zip https://github.com/opencv/opencv/archive/4.5.1.zip 
 wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.5.1.zip 
+
+# To unzip 
 unzip opencv.zip 
 unzip opencv_contrib.zip
 
-Now rename the directories. Type each command below, one after the other.
+#Now rename the directories. Type each command below, one after the other.
 mv opencv-4.5.1 opencv
 mv opencv_contrib-4.5.1 opencv_contrib
 rm opencv.zip
 rm opencv_contrib.zip
 
-Lets build OpenCV now:
+#Lets build OpenCV now:
 cd ~/opencv
 mkdir build
 cd build 
 
 
-copy and paste this entire block of commands below into your terminal.
+#copy and paste this entire block of commands below into your terminal.
 
 cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules -D EIGEN_INCLUDE_PATH=/usr/include/eigen3 -D WITH_OPENCL=OFF -D WITH_CUDA=ON -D CUDA_ARCH_BIN=5.3 -D CUDA_ARCH_PTX="" -D WITH_CUDNN=ON -D WITH_CUBLAS=ON -D ENABLE_FAST_MATH=ON -D CUDA_FAST_MATH=ON -D OPENCV_DNN_CUDA=ON -D ENABLE_NEON=ON -D WITH_QT=OFF -D WITH_OPENMP=ON -D WITH_OPENGL=ON -D BUILD_TIFF=ON -D WITH_FFMPEG=ON -D WITH_GSTREAMER=ON -D WITH_TBB=ON -D BUILD_TBB=ON -D BUILD_TESTS=OFF -D WITH_EIGEN=ON -D WITH_V4L=ON -D WITH_LIBV4L=ON -D OPENCV_ENABLE_NONFREE=ON -D INSTALL_C_EXAMPLES=OFF -D INSTALL_PYTHON_EXAMPLES=OFF -D BUILD_NEW_PYTHON_SUPPORT=ON -D BUILD_opencv_python3=TRUE -D OPENCV_GENERATE_PKGCONFIG=ON -D BUILD_EXAMPLES=OFF ..
 
 Build OpenCV. This command below will take a long time (around 2 hours), make -j4     # (make then space single dash and then j4)
 
-Finish the install:
+# Finish the install:
 cd ~
 sudo rm -r /usr/include/opencv4/opencv2
 cd ~/opencv/build
@@ -176,29 +178,29 @@ sudo ldconfig
 make clean
 sudo apt-get update 
 
-Verify OpenCV Installation
+#Verify OpenCV Installation
 #open python3 shell
 python3
 import cv2
-cv2._version_
+cv2.__version__
 
 
-Install jtop, a system monitoring software for Jetson Nano.
+#Install jtop, a system monitoring software for Jetson Nano.
 cd ~
 sudo -H pip3 install -U jetson-stats 
 sudo reboot
 jtop
 
 
-Test Your Camera on Jetson Nano:
-Turn on your Jetson Nano.
+#Test Your Camera on Jetson Nano:
+#Turn on your Jetson Nano.
 Open a new terminal window, and type:
 ls /dev/video0   #csi camera
 ls /dev/video*   # show you a list of cameras
 
-Take a Photo:
-nvgstcapture-1.0 --orientation=2       # for testing CSI camera
+#Take a Photo:
 # V4L2 USB camera 
-nvgstcapture-1.0 --camsrc=0 --cap-dev-node=1
+nvgstcapture-1.0 --camsrc=0 --cap-dev-node=0
+cheese
 
 
